@@ -32,6 +32,11 @@ namespace ProAgil.API
             );
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            // Configuração para que permita utilizar informação cruzada no servidor.
+            // necessário para o projeto ProAgil-APP possa acessar as informações do API.
+            services.AddCors();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +53,7 @@ namespace ProAgil.API
             }
 
             //app.UseHttpsRedirection();
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseMvc();
         }
     }
