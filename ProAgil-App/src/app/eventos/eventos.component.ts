@@ -40,6 +40,7 @@ export class EventosComponent implements OnInit {
   getEventos() {
     // pegar as informações que estão dentro da ProAgil.API, para isso deve fazer uma chamada Https.
     // Dentro do " app.modules.ts " e em " imports " deve importar o meu " HttpClientModel ".
+    // Faz uma requisição ajax.
     this.http.get('http://localhost:5000/api/values').subscribe( response => {
       this.eventos = response;
       console.log(); // Mostra na tela as informações que vem do projeto ProAgil.API.

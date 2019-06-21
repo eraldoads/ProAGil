@@ -29,6 +29,7 @@ namespace ProAgil.API.Controllers {
         {
             try
             {
+                // Chamada ASSINCRONA.
                 var results = await _context.Eventos.ToListAsync();
 
                 return Ok(results);
@@ -46,6 +47,7 @@ namespace ProAgil.API.Controllers {
         {
             try
             {
+                // Chamada ASSINCRONA.
                 var results = await _context.Eventos.FirstOrDefaultAsync(x => x.EventoId == id);
 
                 return Ok(results);
