@@ -29,7 +29,7 @@ export class EventosComponent implements OnInit {
   // Propriedades.
   // Comentamos a variável criada e agora vamos declarar como sendo uma propriedade para utilizar nos filtros de busca.
   /* Encapsulamento - Inicio */
-  // tslint:disable-next-line: variable-name -> comentario para retirar linha de sinalização de atencão/erro.
+  // tslint:disable-next-line: variable-name -> comentario para retirar da linha a sinalização de atencão/erro.
   _filtroLista: string;
 
   get filtroLista() : string {
@@ -37,7 +37,7 @@ export class EventosComponent implements OnInit {
   }
   set filtroLista(value: string) {
     this._filtroLista = value;
-    this.eventosFiltrados = this.filtroLista ? this.filtrarEvento(this.filtroLista) : this.eventos;
+    this.eventosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.eventos;
   }
   /* Encapsulamento - Fim */
 
@@ -61,7 +61,7 @@ export class EventosComponent implements OnInit {
   }
 
   // Funções.
-  filtrarEvento(filtrarPor: string) : any{
+  filtrarEventos(filtrarPor: string) : any{
     filtrarPor = filtrarPor.toLocaleLowerCase();
     return this.eventos.filter(
       evento => evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1
