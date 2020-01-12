@@ -5,7 +5,7 @@ namespace ProAgil.API.Data
 {
     public class DataContext : DbContext
     {
-        // Cria o contstrutor.
+        // Cria o construtor.
         public DataContext(DbContextOptions<DataContext> options) : base(options) {}
 
         // Cria uma propriedade.

@@ -4,12 +4,8 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Core" />
-    <Reference Include="Xamarin.iOS" />
     <PackageReference Include="Microsoft.AspNetCore.App"/>
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.0"/>
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.4"/>
   </ItemGroup>
 </Project>

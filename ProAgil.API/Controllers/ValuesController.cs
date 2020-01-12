@@ -20,7 +20,6 @@ namespace ProAgil.API.Controllers {
         // Cria o construtor.
         public ValuesController (DataContext context) {
             _context = context;
-
         }
 
         // GET api/values

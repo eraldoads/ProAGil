@@ -54,6 +54,7 @@ namespace ProAgil.API
 
             //app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseStaticFiles(); // Para poder utilizar imagens. Encontra as imagens dentro do servidor, dentro da pasta 'wwwroot/img/'.
             app.UseMvc();
         }
     }

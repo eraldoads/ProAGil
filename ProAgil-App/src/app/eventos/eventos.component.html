@@ -1,13 +1,89 @@
-<p>
-  Trabalhando com Eventos!
-</p>
-
+<!--
+  <p>
+    Trabalhando com Eventos!
+  </p>
+-->
 <!-- {{eventos[0].Tema}} -->
 
 <!-- Utilizando a diretiva do Angular -->
-<div *ngFor="let evento of eventos">
+<!--
+  <div *ngFor="let evento of eventos">
     Tema: {{evento.tema}}
     <br/>
     Local: {{evento.local}}
+    <br/>
+    Data do Evento: {{evento.dataEvento}}
     <hr/>
+
+  </div>
+-->
+
+<!-- Criação de um formulário simples, forma de criar digitando ' form>.form-group.mb-2>input.form-control.mr-2 ' depois aperta o ' enter ' -->
+<div class="form-inline">
+  <div class="form-group mb-2">
+    <label class="mr-2">Filtro: </label>
+    <input type="text"
+    class="form-control mr-2"
+    placeholder="Busca informações"
+    [(ngModel)]="filtroLista"> <!-- Para utilizar o 'filtroLista' deve importar o 'FormsModule' dentro do ' app.module.ts '-->
+
+    <!-- Criação de um botão, forma de criar digitando ' btn.btn.btn-outline-success{Buscar} ' depois aperta o ' enter ' -->
+    <!-- <button class="btn btn-outline-success">Buscar</button> -->
+  </div>
 </div>
+
+<h3>Filtro: {{filtroLista}}</h3>
+
+<!-- Criação de uma tabela digitando ' table.table.table-striped>thead.thead-dark>tr>th*7 ' depois aperta o ' enter ' -->
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>
+        <button class="btn btn-outline-primary"
+        (click)="alternarImagem()">
+        Mostrar Imagem
+      </button>
+    </th>
+    <th>#</th>
+    <th>Tema</th>
+    <th>Local</th>
+    <th>Data</th>
+    <th>Qtd Pessoas</th>
+    <th>Lote</th>
+    <th>Opções</th>
+  </tr>
+</thead>
+<!-- Criação do conteudo da tabela digitando ' tbody>tr>td*7 ' depois aperta o ' enter ' -->
+<tbody *ngIf="eventos && eventos.length">
+  <!-- Realiza um binding com interpolação entre uma propriedade da nossa classe (contida dentro do eventos.component.ts) e o nosso template -->
+  <tr *ngFor="let evento of eventosFiltrados">
+    <td>
+      <!-- Trabalhando com concatenação e criando propriedades -->
+      <img *ngIf="mostrarImagem"
+      src="http://localhost:5000/img/{{evento.imagemURL}}"
+      [style.width.px]="imagemLargura"
+      [style.margin.px]="imagemMargem">
+    </td>
+    <td>{{evento.eventoId}}</td>
+    <td>{{evento.tema}}</td>
+    <td>{{evento.local}}</td>
+    <td>{{evento.dataEvento}}</td>
+    <td>{{evento.qtdPessoas}}</td>
+    <td>{{evento.lote | uppercase}}</td>
+    <td>
+      <button class="btn btn-success"></button>
+      <button class="btn btn-danger"></button>
+    </td>
+  </tr>
+</tbody>
+<tfoot *ngIf="!eventos.length">
+  <tr>
+    <td colspan="7" class="text-center">
+      <h4>
+        Nenhum evento encontrado!
+      </h4>
+    </td>
+  </tr>
+</tfoot>
+
+</table>

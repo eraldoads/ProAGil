@@ -26,8 +26,31 @@ export class EventosComponent implements OnInit {
   //   },
   // ];
 
+  // Propriedades.
+  // Comentamos a variável criada e agora vamos declarar como sendo uma propriedade para utilizar nos filtros de busca.
+  /* Encapsulamento - Inicio */
+  // tslint:disable-next-line: variable-name -> comentario para retirar linha de sinalização de atencão/erro.
+  _filtroLista: string;
+
+  get filtroLista() : string {
+    return this._filtroLista;
+  }
+  set filtroLista(value: string) {
+    this._filtroLista = value;
+    this.eventosFiltrados = this.filtroLista ? this.filtrarEvento(this.filtroLista) : this.eventos;
+  }
+  /* Encapsulamento - Fim */
+
   // Para importar as informações:
-  eventos: any; // criar o GetEventos().
+  // O " = [] " significa que foi atribuido um tipo array ao "any".
+  eventos: any = []; // Deve criar o GetEventos().
+  eventosFiltrados: any = [];
+
+  // Variáveis.
+  imagemLargura = 50;
+  imagemMargem = 2;
+  mostrarImagem = false;
+  // filtroLista = '';
 
   constructor(private http: HttpClient) { }
 
@@ -35,6 +58,18 @@ export class EventosComponent implements OnInit {
   // Vai ser executado antes da nossa interface ser implementada ( @Component({ ... }) ), antes do HTML ficar pronto ( templateUrl: './eventos.component.html', ).
   ngOnInit() {
     this.getEventos();
+  }
+
+  // Funções.
+  filtrarEvento(filtrarPor: string) : any{
+    filtrarPor = filtrarPor.toLocaleLowerCase();
+    return this.eventos.filter(
+      evento => evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+    );
+  }
+
+  alternarImagem(){
+    this.mostrarImagem = !this.mostrarImagem; // Recebe o oposto dele mesmo, para mostrar ou não a imagem.
   }
 
   getEventos() {
