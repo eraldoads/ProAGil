@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using ProAgil.API.Data;
+using ProAgil.Repositorio;
 
 namespace ProAgil.API
 {
@@ -27,10 +27,11 @@ namespace ProAgil.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(
+            services.AddDbContext<ProAgilContext>(
                 x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")) // Dentro do arquivo de configuração " appsettings.Development.json " vai ser criado a " ConnectionString ".
             );
-
+            // Aqui ele injeta o repositório para quem precisar / herdar.
+            services.AddScoped<IProAgilRepositorio, ProAgilRepositorio>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // Configuração para que permita utilizar informação cruzada no servidor.

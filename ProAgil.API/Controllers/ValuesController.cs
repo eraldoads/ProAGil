@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ProAgil.API.Data;
-using ProAgil.API.Model;
+using ProAgil.Repositorio;
 
-namespace ProAgil.API.Controllers {
+namespace ProAgil.API.Controllers
+{
     [Route ("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase {
-        
-        public DataContext _context { get; }
+    
+        public ProAgilContext _context { get; }
         // Ou pode ser escrito da seguinte maneira:
         //public readonly DataContext _context;
 
         // Cria o construtor.
-        public ValuesController (DataContext context) {
+        public ValuesController (ProAgilContext context) {
             _context = context;
         }
 
@@ -47,7 +44,7 @@ namespace ProAgil.API.Controllers {
             try
             {
                 // Chamada ASSINCRONA.
-                var results = await _context.Eventos.FirstOrDefaultAsync(x => x.EventoId == id);
+                var results = await _context.Eventos.FirstOrDefaultAsync(x => x.Id == id);
 
                 return Ok(results);
             }
