@@ -31,4 +31,22 @@ export class EventoService {
     return this.http.get<Evento>(`${this.baseURL}/${id}`);
   }
 
+  // ↓ Método para receber o POST → as informações do formulário passada por paramêtro.
+  postEvento(evento: Evento) {
+    // Retorna um Observable.
+    return this.http.post(this.baseURL, evento);
+  }
+
+  // ↓ Método para receber o PUT → as informações do formulário passada por paramêtro.
+  putEvento(evento: Evento) {
+    // Retorna um Observable.
+    return this.http.put(`${this.baseURL}/${evento.id}`, evento);
+  }
+
+  // ↓ Método para deletar um item da tabela.
+  deleteEvento(id: number) {
+    // Retorna um Observable.
+    return this.http.delete(`${this.baseURL}/${id}`);
+  }
+
 }
