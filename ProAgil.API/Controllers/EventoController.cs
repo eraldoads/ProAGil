@@ -1,6 +1,9 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProAgil.API.Dtos;
 using ProAgil.Dominio;
 using ProAgil.Repositorio;
 
@@ -13,41 +16,52 @@ namespace ProAgil.API.Controllers
     {
         // PROPRIEDADE.
         private readonly IProAgilRepositorio _repo;
+        private readonly IMapper _mapper;
 
         // CONSTRUTOR.
         // Injeta por meio de uma interface o repositório (repo). Isso é a dependency injection (injeção de dependência).
-        public EventoController(IProAgilRepositorio repo)
+        // Deve fazer a referencia ao AutoMapper (IMapper) devido a utilização das DTOs.
+        public EventoController(IProAgilRepositorio repo, IMapper mapper)
         {
+            _mapper = mapper;
             _repo = repo;
         }
 
         // GET
         [HttpGet]
-        public async Task<IActionResult> Get ()
+        public async Task<IActionResult> Get()
         {
             try
             {
                 // Chamada ASSINCRONA.
                 // Retorna todos os eventos.
-                var results = await _repo.GetAllEventoAsync(true);
+                var eventos = await _repo.GetAllEventoAsync(true);
+
+                // Resultado do mapeamento.
+                // var results = _mapper.Map<IEnumerable<EventoDto>>(eventos); // → por estar retornando, o eventos, uma lista de arrays é necessário acrescentar o IEnumerable<EventoDto>.
+                // ou ↓
+                var results = _mapper.Map<EventoDto[]>(eventos);
 
                 return Ok(results);
             }
-            catch (System.Exception)
+            catch (System.Exception ex )
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados falhou");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco de dados falhou {ex.Message}");
             }
-            
+
         }
 
         [HttpGet("{EventoId}")]
-        public async Task<IActionResult> Get (int EventoId)
+        public async Task<IActionResult> Get(int EventoId)
         {
             try
             {
                 // Chamada ASSINCRONA.
                 // Retorna todos os eventos.
-                var results = await _repo.GetAllEventoAsyncById(EventoId, true);
+                var evento = await _repo.GetAllEventoAsyncById(EventoId, true);
+                //var evento = await _repo.GetEventoAsyncById(EventoId, true);
+
+                var results = _mapper.Map<EventoDto>(evento); // → Aqui ele retorna somente um evento, não precisa do IEnumerable<>.
 
                 return Ok(results);
             }
@@ -55,17 +69,19 @@ namespace ProAgil.API.Controllers
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados falhou");
             }
-            
+
         }
 
         [HttpGet("getByTema/{tema}")]
-        public async Task<IActionResult> Get (string tema)
+        public async Task<IActionResult> Get(string tema)
         {
             try
             {
                 // Chamada ASSINCRONA.
                 // Retorna todos os eventos.
-                var results = await _repo.GetAllEventoAsyncByTema(tema, true);
+                var eventos = await _repo.GetAllEventoAsyncByTema(tema, true);
+
+                var results = _mapper.Map<EventoDto[]>(eventos);
 
                 return Ok(results);
             }
@@ -73,40 +89,50 @@ namespace ProAgil.API.Controllers
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados falhou");
             }
-            
+
         }
 
         // POST
         [HttpPost]
-        public async Task<IActionResult> Post (Evento model)
+        // public async Task<IActionResult> Post(Evento model)
+        // Após a criação dos DTOs alteramos para receber o EventoDto.
+        public async Task<IActionResult> Post(EventoDto model)
         {
             try
             {
+                // Quando receber o model 
+                var evento = _mapper.Map<Evento>(model);
+
                 // Na adição do model ele não precisa ser assincrono.
                 // Aqui ele muda um estado do EntityFramework.
-                _repo.Add(model);
-                
+                //_repo.Add(model);
+                // ↓ após a criação dos DTOs e o POST estar recebendo agora o DTO, alteramos:
+                _repo.Add(evento);
+
                 // Na hora de salvar ele precisa ser assincrono (await).
                 // Aqui ele salva toda a mudança de estado.
                 if (await _repo.SaveChangeAsync())
                 {
                     // Aqui utilizamos o status code 201 que foi salvo com sucesso.
-                    return Created($"/api/evento/{model.Id}", model);
+                    //return Created($"/api/evento/{model.Id}", model);
+                    return Created($"/api/evento/{model.Id}", _mapper.Map<EventoDto>(evento)); // _mapper.Map<EventoDto>(evento) → retorna fazendo o match entre o evento com EventoDto.
                 }
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados falhou");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco de dados falhou {ex.Message}");
             }
 
             // Caso não tenha dado certo o SaveChangeAsync retorna a mensagem de erro BadRequest.
             return BadRequest();
-            
+
         }
 
         // PUT
         [HttpPut("{EventoID}")]
-        public async Task<IActionResult> Put (int EventoId, Evento model)
+        //public async Task<IActionResult> Put(int EventoId, Evento model)
+        // Após a criação dos DTOs alteramos para receber o EventoDto.
+        public async Task<IActionResult> Put(int EventoId, EventoDto model)
         {
             try
             {
@@ -117,18 +143,23 @@ namespace ProAgil.API.Controllers
                 // Se não foi encontrado elemento não é atualizado.
                 if (evento == null) return NotFound();
 
+                // Faz o mapeamento recebendo o model e substituindo pelo evento.
+                _mapper.Map(model, evento);
+
                 // Caso encontre o elemento segue o código ↓
 
                 // Na atualização do model ele não precisa ser assincrono.
                 // Aqui ele muda um estado do EntityFramework.
-                _repo.Update(model);
+                // _repo.Update(model);
+                // Após o mapeamento faz a atualização dos campos.
+                _repo.Update(evento);
 
                 // Na hora de salvar ele precisa ser assincrono (await).
                 // Aqui ele salva toda a mudança de estado.
                 if (await _repo.SaveChangeAsync())
                 {
                     // Aqui utilizamos o status code 201 que foi salvo com sucesso.
-                    return Created($"/api/evento/{model.Id}", model);
+                    return Created($"/api/evento/{model.Id}", _mapper.Map<EventoDto>(evento)); // _mapper.Map<EventoDto>(evento) → retorna fazendo o match entre o evento com EventoDto.
                 }
             }
             catch (System.Exception)
@@ -138,12 +169,12 @@ namespace ProAgil.API.Controllers
 
             // Caso não tenha dado certo o SaveChangeAsync retorna a mensagem de erro BadRequest.
             return BadRequest();
-            
+
         }
 
         // Delete
         [HttpDelete("{EventoId}")]
-        public async Task<IActionResult> Delete (int EventoId)
+        public async Task<IActionResult> Delete(int EventoId)
         {
             try
             {
@@ -159,7 +190,7 @@ namespace ProAgil.API.Controllers
                 // Na exclusão do model ele não precisa ser assincrono.
                 // Aqui ele muda um estado do EntityFramework.
                 _repo.Delete(evento);
-                
+
                 // Na hora de salvar ele precisa ser assincrono (await).
                 // Aqui ele salva toda a mudança de estado.
                 if (await _repo.SaveChangeAsync())
@@ -175,7 +206,7 @@ namespace ProAgil.API.Controllers
 
             // Caso não tenha dado certo o SaveChangeAsync retorna a mensagem de erro BadRequest.
             return BadRequest();
-            
+
         }
     }
 }

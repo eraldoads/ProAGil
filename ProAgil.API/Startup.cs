@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,12 +31,13 @@ namespace ProAgil.API
             services.AddDbContext<ProAgilContext>(
                 x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")) // Dentro do arquivo de configuração " appsettings.Development.json " vai ser criado a " ConnectionString ".
             );
-            // Aqui ele injeta o repositório para quem precisar / herdar.
+            // ↓ Aqui ele injeta o repositório para quem precisar / herdar.
             services.AddScoped<IProAgilRepositorio, ProAgilRepositorio>();
+            // ↓ Aqui informamos que a aplicação vai trabalhar com o AutoMapper entre classes.
+            services.AddAutoMapper();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            // Configuração para que permita utilizar informação cruzada no servidor.
-            // necessário para o projeto ProAgil-APP possa acessar as informações do API.
+            // ↓ Configuração para que permita utilizar informação cruzada no servidor.
+            //   Necessário para o projeto ProAgil-APP possa acessar as informações do API.
             services.AddCors();
 
         }

@@ -67,7 +67,7 @@ export class EventosComponent implements OnInit {
 
   // constructor(private http: HttpClient) { } // → Modificado após a criação do serviço ↓
   constructor(
-    private eventoService: EventoService
+      private eventoService: EventoService
     , private modalService: BsModalService
     , private fb: FormBuilder
     , private localeService: BsLocaleService

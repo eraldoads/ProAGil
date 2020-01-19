@@ -4,16 +4,17 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Core" />
-    <Reference Include="Xamarin.iOS" />
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.0" />
+    <Reference Include="System"/>
+    <Reference Include="System.Xml"/>
+    <Reference Include="System.Core"/>
+    <Reference Include="Xamarin.iOS"/>
+    <PackageReference Include="Microsoft.AspNetCore.App"/>
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.0"/>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.0"/>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProAgil.Dominio\ProAgil.Dominio.csproj" />
-    <ProjectReference Include="..\ProAgil.Repositorio\ProAgil.Repositorio.csproj" />
+    <ProjectReference Include="..\ProAgil.Dominio\ProAgil.Dominio.csproj"/>
+    <ProjectReference Include="..\ProAgil.Repositorio\ProAgil.Repositorio.csproj"/>
   </ItemGroup>
 </Project>

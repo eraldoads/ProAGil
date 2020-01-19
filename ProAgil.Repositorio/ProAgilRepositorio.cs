@@ -62,7 +62,7 @@ namespace ProAgil.Repositorio
 
             // o método AsNoTracking serve para especificar que não quero travar o meu recurso para que ele seja retornado.
             query = query.AsNoTracking()
-                         .OrderByDescending(c => c.DataEvento);
+                         .OrderBy(c => c.Id);
 
             return await query.ToArrayAsync();
         }
