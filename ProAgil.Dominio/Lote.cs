@@ -13,7 +13,7 @@ namespace ProAgil.Dominio
         public DateTime? DataFim { get; set; }
         public int Quantidade { get; set; }
         public int EventoId { get; set; }
-        // Nesse elemento será feito somente o get, pois ele é readonly, nele não será adicionada informações.
+        // Nesse elemento será feito somente o get, pois ele é readonly, nele não serão adicionadas informações.
         public Evento Evento { get; }
 
     }

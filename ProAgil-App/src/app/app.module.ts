@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http'; // Importa o modulo HttpClientModule.
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Importa o modulo FormsModule.
 import { AppRoutingModule } from './app-routing.module';
-import { BsDropdownModule, TooltipModule, ModalModule, BsDatepickerModule } from 'ngx-bootstrap'; // Importa o modulo do NGX-Bootstrap.
+import { BsDropdownModule, TooltipModule, ModalModule, BsDatepickerModule, } from 'ngx-bootstrap'; // Importa o modulo do NGX-Bootstrap.
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // SERVIÇOS
@@ -17,6 +17,7 @@ import { NavComponent } from './nav/nav.component';
 
 // PIPE
 import { DateTimeFormatPipePipe } from './_helps/DateTimeFormatPipe.pipe';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
    declarations: [
@@ -35,7 +36,8 @@ import { DateTimeFormatPipePipe } from './_helps/DateTimeFormatPipe.pipe';
       AppRoutingModule,
       HttpClientModule, // Importa o modulo para poder realizar a chamadaHttps.
       FormsModule, // Importa o @angular/forms para poder utilizar o 'Two-way Data Binding' ( Caixa de banana [()] ).
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      CommonModule
    ],
    providers: [
      EventoService
