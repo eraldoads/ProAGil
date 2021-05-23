@@ -29,10 +29,10 @@ import { CommonModule } from '@angular/common';
    imports: [
       BrowserModule,
       BrowserAnimationsModule,
-      BsDropdownModule.forRoot(), // o forRoot é para funcionar em toda a aplicação.
-      BsDatepickerModule.forRoot(),
-      TooltipModule.forRoot(),
-      ModalModule.forRoot(),
+      BsDropdownModule.forRoot(), // o "forRoot" é para funcionar em toda a aplicação.
+      BsDatepickerModule.forRoot(), // o "forRoot" é para funcionar em toda a aplicação.
+      TooltipModule.forRoot(), // o "forRoot" é para funcionar em toda a aplicação.
+      ModalModule.forRoot(), // o "forRoot" é para funcionar em toda a aplicação.
       AppRoutingModule,
       HttpClientModule, // Importa o modulo para poder realizar a chamadaHttps.
       FormsModule, // Importa o @angular/forms para poder utilizar o 'Two-way Data Binding' ( Caixa de banana [()] ).

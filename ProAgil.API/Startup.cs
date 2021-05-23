@@ -33,7 +33,7 @@ namespace ProAgil.API
             );
             // ↓ Aqui ele injeta o repositório para quem precisar / herdar.
             services.AddScoped<IProAgilRepositorio, ProAgilRepositorio>();
-            // ↓ Aqui informamos que a aplicação vai trabalhar com o AutoMapper entre classes.
+            // ↓ Aqui faz a referencia, informando que a aplicação vai trabalhar com o AutoMapper entre classes.
             services.AddAutoMapper();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             // ↓ Configuração para que permita utilizar informação cruzada no servidor.

@@ -131,7 +131,7 @@ export class EventosComponent implements OnInit {
   }
 
   validation() {
-    //#region → treho comentado por ser criado outro tipo de tratamento.
+    //#region → trecho comentado por ser criado outro tipo de tratamento.
     // É desncessário ter que criar para todo o campo um ' new FormControl ', dentro do construtor
     // é criado o ' private fb: FormBuilder '.
     // this.registerForm = new FormGroup({
