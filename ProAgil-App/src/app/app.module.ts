@@ -7,6 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { BsDropdownModule, TooltipModule, ModalModule, BsDatepickerModule, } from 'ngx-bootstrap'; // Importa o modulo do NGX-Bootstrap.
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { ToastrModule } from 'ngx-toastr';
+
 // SERVIÇOS
 import { EventoService } from './_services/evento.service';
 
@@ -33,6 +35,12 @@ import { CommonModule } from '@angular/common';
       BsDatepickerModule.forRoot(), // o "forRoot" é para funcionar em toda a aplicação.
       TooltipModule.forRoot(), // o "forRoot" é para funcionar em toda a aplicação.
       ModalModule.forRoot(), // o "forRoot" é para funcionar em toda a aplicação.
+      BrowserAnimationsModule, // Requerido para animations module
+      ToastrModule.forRoot({
+         timeOut: 10000,
+         positionClass: 'toast-bottom-right',
+         preventDuplicates: true,
+       }), // ToastrModule adcionado
       AppRoutingModule,
       HttpClientModule, // Importa o modulo para poder realizar a chamadaHttps.
       FormsModule, // Importa o @angular/forms para poder utilizar o 'Two-way Data Binding' ( Caixa de banana [()] ).

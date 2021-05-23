@@ -5,6 +5,7 @@ import { Evento } from '../_models/Evento';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { FormGroup, Validators, FormBuilder, FormsModule } from '@angular/forms';
 import { defineLocale, BsLocaleService, ptBrLocale } from 'ngx-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 defineLocale('pt-br', ptBrLocale); // → Definir a linguagem do calendario para o formato PortuguÊs Brasil.
 
@@ -70,6 +71,7 @@ export class EventosComponent implements OnInit {
     , private modalService: BsModalService
     , private fb: FormBuilder
     , private localeService: BsLocaleService
+    , private toastr: ToastrService
   ) {
     this.localeService.use('pt-br'); // → Com isso o calendário já fica com a linguagem Português Brasil.
   }
@@ -169,8 +171,11 @@ export class EventosComponent implements OnInit {
           (novoEvento: Evento) => {
             template.hide(); // Fecha o a tela do modal.
             this.getEventos(); // Atualiza a grid com as informações.
+            this.toastr.success('Item inserido com sucesso!', 'Excelente');
           }, error => {
-            console.log(error);
+            // console.log(error);
+            // ↓ Alterado para utilizar o Toastr GX → Mensagem que é apresentada na tela.
+            this.toastr.error(`Erro ao inserir: ${error}`, 'Erro');
           }
           ); // Precisa do subscribe por ser um metodo "Observable".
         } else {
@@ -181,8 +186,11 @@ export class EventosComponent implements OnInit {
             () => {
               template.hide(); // Fecha o a tela do modal.
               this.getEventos(); // Atualiza a grid com as informações.
+              this.toastr.success('Item editado com sucesso!', 'Excelente');
             }, error => {
-              console.log(error);
+              // console.log(error);
+              // ↓ Alterado para utilizar o Toastr NGX → Mensagem que é apresentada na tela.
+              this.toastr.error(`Erro ao editar: ${error}`, 'Erro');
             }
             ); // Precisa do subscribe por ser um metodo "Observable".
           }
@@ -200,7 +208,9 @@ export class EventosComponent implements OnInit {
       () => {
         template.hide();
         this.getEventos();
+        this.toastr.success('Item excluído com sucesso!', 'Excelente');
       }, error => {
+        this.toastr.error('Erro ao tentar excluir item!', 'Erro');
         console.log(error);
       }
       );
