@@ -8,10 +8,14 @@
   </h1> -->
   <img style="margin-left: 450px" width="150" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
 
-  <h2>Projeto Angular → {{ title }}!</h2>
+  <!-- ↓ Retirado para colocar no /shared/titulo/titulo.component.html -->
+  <!-- <h2>Projeto Angular → {{ title }}!</h2> -->
+  <!-- ↓ substituimos por: -->
+  <!-- <app-titulo></app-titulo> -->
+  <!-- Para altera o titulo conforme as opções da tela, foi retirado dessa página e colocado
+       no inicio do /eventos/eventos.component.html  -->
 
-  <app-eventos></app-eventos>
-
+  <router-outlet></router-outlet>
+  
 </div>
 
-<router-outlet></router-outlet>

@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ProAgil Eventos';
+  // Retirado para ser colocado no /_shared/titulo/titulo.component.ts
+  // title = 'ProAgil Eventos';
 }

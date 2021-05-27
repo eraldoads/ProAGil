@@ -36,6 +36,9 @@ export class EventosComponent implements OnInit {
   // ];
   //#endregion
 
+  // ↓ cria uma variável para informar o nome da tela na página.
+  titulo = 'Eventos';
+
   // Propriedades.
   // Comentamos a variável criada e agora vamos declarar como sendo uma propriedade para utilizar nos filtros de busca.
   /* Encapsulamento - Inicio */
@@ -47,7 +50,9 @@ export class EventosComponent implements OnInit {
   // eventosFiltrados: any = []; // → Comentado após a utlização do serviço.
 
   // Deixando mais tipado.
-  eventos: Evento[] = []; // Deve criar o GetEventos() atribuindo um 'array' para utilizar o 'length' no 'eventos.component.html'.
+  // tslint:disable-next-line: max-line-length
+  eventos: Evento[] = []; // Deve criar o GetEventos() atribuindo um 'array' para utilizar o 'length' no 'eventos.component.html' no '<tfoot *ngIf="!eventos.length">'.
+  // eventos: Evento[] // Ao utilizar essa forma, dentro do 'eventos.component.html' tem que mudar para '<tfoot *ngIf="!eventos">'.
   eventosFiltrados: Evento[];
 
   evento: Evento;
@@ -240,9 +245,11 @@ export class EventosComponent implements OnInit {
       (_eventos: Evento[]) => {
         this.eventos = _eventos;
         this.eventosFiltrados = this.eventos;
-        console.log(_eventos); // Mostra na tela as informações que vem do projeto ProAgil.API.
+        // console.log(_eventos); // Mostra na tela as informações que vem do projeto ProAgil.API.
       }, error => {
-        console.log(error);
+        // console.log(error);
+        // colocado para dar uma evidenciada na tela no caso de erro.
+        this.toastr.error(`Erro ao tentar carregar eventos: ${error}`, 'Erro');
       }
     ); // Faz uma resquisição na API, é uma requisição AJAX.
   }
