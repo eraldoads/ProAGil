@@ -71,7 +71,7 @@
     <tr *ngFor="let evento of eventosFiltrados">
       <td>
         <!-- Trabalhando com concatenação e criando propriedades. -->
-         <!-- Colocar o dataAtual na URL para entender que a imagem foi alterada e não utilizar o cache do HTML. -->
+         <!-- Colocar o dataAtual na URL para entender que a imagem foi alterada e não utilizar o cache do HTML. --> 
         <img *ngIf="mostrarImagem"
         src="http://localhost:5000/resources/images/{{evento.imagemURL}}?_ts{{dataAtual}}"
         [style.width.px]="imagemLargura"

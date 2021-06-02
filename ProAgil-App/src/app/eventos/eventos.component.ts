@@ -118,7 +118,7 @@ export class EventosComponent implements OnInit {
     // Deixando como vazio ele não vai tentar inserir algo e com essa alteração não está
     // mais sendo limpado o evento que esta sendo passado por parametro, agora, está
     // sendo limpada a cópia que foi feita dele.
-    this.evento.imagemURL = ''; 
+    this.evento.imagemURL = '';
     this.registerForm.patchValue(this.evento);
   }
 
@@ -190,7 +190,7 @@ export class EventosComponent implements OnInit {
 
   }
 
-  onFileChange(event){
+  onFileChange(event) {
     const reader = new FileReader();
 
     // ↓ Aqui verificamos se o arquivo tem uma imagem e se ele realmemte tem um tamanho.
@@ -202,7 +202,7 @@ export class EventosComponent implements OnInit {
     }
   }
 
-  uploadImagem(){
+  uploadImagem() {
     // ↓ Tratamento para alterar a imagem sem incluir uma nova no 'Resources\Images'.
     // no caso do de um 'POST' continua fazendo o que já fazia.
     if (this.modoSalvar === 'post') {
@@ -252,7 +252,7 @@ export class EventosComponent implements OnInit {
         //// Com temos uma promise temos que dar um subscribe nele.
         // this.eventoService.postUpload(this.file).subscribe();
 
-        //// ↓ Como o arquivo vem carregado com um nome "Fake", precisa fazer 
+        //// ↓ Como o arquivo vem carregado com um nome "Fake", precisa fazer
         //// um tratamento para pegar o nome corretamente
         // const nomeArquivo = this.evento.imagemURL.split('\\', 3);
         // this.evento.imagemURL = nomeArquivo[2];
@@ -278,12 +278,12 @@ export class EventosComponent implements OnInit {
 
           //// ↓ Chamar o save primeiro do arquivo.
           //// Com temos uma promise temos que dar um subscribe nele.
-          //this.eventoService.postUpload(this.file).subscribe();
+          // this.eventoService.postUpload(this.file).subscribe();
 
-          //// ↓ Como o arquivo vem carregado com um nome "Fake", precisa fazer 
+          //// ↓ Como o arquivo vem carregado com um nome "Fake", precisa fazer
           //// um tratamento para pegar o nome corretamente
-          //const nomeArquivo = this.evento.imagemURL.split('\\', 3);
-          //this.evento.imagemURL = nomeArquivo[2];
+          // const nomeArquivo = this.evento.imagemURL.split('\\', 3);
+          // this.evento.imagemURL = nomeArquivo[2];
 
           // ↓ Criado metodo para que não tenha código repetido.
           this.uploadImagem();

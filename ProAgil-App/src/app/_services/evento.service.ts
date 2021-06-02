@@ -32,9 +32,10 @@ export class EventoService {
   }
 
   // ↓ Método que é chamado pela rota do DotNet que é o /upload com o arquivo selecionado na tela que é o formData.
-  postUpload(file: File, name: string){
+  postUpload(file: File, name: string) {
     // ↓ Montar o arquivo. como o arquivo é um array apontamos ele para a 1ª posição.
-    const fileToUpload = <File>file[0];
+    // const fileToUpload = <File>file[0];
+    const fileToUpload = file[0] as File; // Alterado conforme orientação do 'TsLint'.
     // ↓ Criamos um formDatra, pois é o que vamos enviar.
     const formData = new FormData();
     // ↓ Ese formData deve receber
