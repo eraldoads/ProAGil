@@ -67,6 +67,13 @@ export class EventosComponent implements OnInit {
   registerForm: FormGroup;
   bodyDeletarEvento = '';
 
+  // ↓ Cria uma variável para o arquivo de imagem.
+  file: File;
+  // ↓ Cria uma variável para receber o nome da imagem.
+  fileNameUpdate: string;
+  // ↓ Cria uma variável para receber a data atual.
+  dataAtual: string;
+
   // tslint:disable-next-line: variable-name → Comentario para desabilitar a sinalização de atenção na linha ↓.
   _filtroLista: string;
 
@@ -93,7 +100,25 @@ export class EventosComponent implements OnInit {
   editarEvento(evento: Evento, template: any) {
     this.modoSalvar = 'put';
     this.openModal(template);
-    this.evento = evento;
+
+   // ↓ Código retirado para ajuste ao clicar no editar e a imagem some e da erro no console.
+   // this.evento = evento; // Isso é um Binding.
+   // // ↓ uma solução "Paliativa" para que não apresente erro ao cliclar em Editar evento.
+   // evento.imagemURL = ''; // Deixando como vazio ele não vai tentar inserir algo. Isso é um Binding.
+   // this.registerForm.patchValue(evento);
+
+    // ↓ Copiar as informações para dentro de um "evento". Esse evento esta sofrendo um "Bind do Two-Way Data Biding"
+    // na grid da tela, ao clicar em editar a imagem some e da erro no console. Com isso deve remover o Binding
+    // por meio de uma copia.
+    this.evento = Object.assign({}, evento);
+    // ↓ Atribui a variável o valor da imagem.
+    this.fileNameUpdate = evento.imagemURL.toString();
+
+    // ↓ uma solução "Paliativa" para que não apresente erro ao cliclar em Editar evento.
+    // Deixando como vazio ele não vai tentar inserir algo e com essa alteração não está
+    // mais sendo limpado o evento que esta sendo passado por parametro, agora, está
+    // sendo limpada a cópia que foi feita dele.
+    this.evento.imagemURL = ''; 
     this.registerForm.patchValue(this.evento);
   }
 
@@ -165,12 +190,76 @@ export class EventosComponent implements OnInit {
 
   }
 
+  onFileChange(event){
+    const reader = new FileReader();
+
+    // ↓ Aqui verificamos se o arquivo tem uma imagem e se ele realmemte tem um tamanho.
+    if (event.target.files && event.target.files.length) {
+      // ↓ Aqui temos a atribuição do nosso arquivo que está dentro do nosso
+      // Evento que tem o Target que tem o arquivo
+      this.file = event.target.files;
+      // console.log(this.file); // Verificar o que retorna.
+    }
+  }
+
+  uploadImagem(){
+    // ↓ Tratamento para alterar a imagem sem incluir uma nova no 'Resources\Images'.
+    // no caso do de um 'POST' continua fazendo o que já fazia.
+    if (this.modoSalvar === 'post') {
+      // ↓ Como o arquivo vem carregado com um nome "Fake", precisa fazer
+      // um tratamento para pegar o nome corretamente
+      const nomeArquivo = this.evento.imagemURL.split('\\', 3);
+      this.evento.imagemURL = nomeArquivo[2];
+
+      // ↓ Chamar o save primeiro do arquivo.
+      // Com temos uma promise temos que dar um subscribe nele.
+      this.eventoService.postUpload(this.file, nomeArquivo[2])
+      .subscribe(
+        () => {
+          // → Necessidade de fazer uma "gambiarra" para que ao alterar a imagem ela será atualizada
+          // e carregará a grid na tela com a nova imagem salva.
+          this.dataAtual = new Date().getMilliseconds().toString(); // essa é a "gambiarra".
+
+          this.getEventos();
+        }
+      );
+    } else { // ↓ No caso de um 'PUT'
+      // ↓ Recebe o nome exato da imagem que foi cadastrada no banco de dados.
+      this.evento.imagemURL = this.fileNameUpdate;
+      // ↓ Passamos uma nova variável "criando um valor(nome do arquivo) que já esta no banco de dados".
+      this.eventoService.postUpload(this.file, this.fileNameUpdate)
+      .subscribe(
+        () => {
+          // → Necessidade de fazer uma "gambiarra" para que ao alterar a imagem ela será atualizada
+          // e carregará a grid na tela com a nova imagem salva.
+          this.dataAtual = new Date().getMilliseconds().toString(); // essa é a "gambiarra".
+
+          this.getEventos();
+        }
+      );
+
+    }
+  }
+
   salvarAlteracao(template: any) {
     // Verifica se o formulário está valido
     if (this.registerForm.valid) {
       if (this.modoSalvar === 'post') {
         // ↓ Evento recebe um "COP", assim copia todos os valores do formulário e atribui para dentro do 'this.evento'.
         this.evento = Object.assign({}, this.registerForm.value);
+
+        //// ↓ Chamar o save primeiro do arquivo.
+        //// Com temos uma promise temos que dar um subscribe nele.
+        // this.eventoService.postUpload(this.file).subscribe();
+
+        //// ↓ Como o arquivo vem carregado com um nome "Fake", precisa fazer 
+        //// um tratamento para pegar o nome corretamente
+        // const nomeArquivo = this.evento.imagemURL.split('\\', 3);
+        // this.evento.imagemURL = nomeArquivo[2];
+
+        // ↓ Criado metodo para que não tenha código repetido.
+        this.uploadImagem();
+
         // ↓ Passar por parametro para o serviço.
         this.eventoService.postEvento(this.evento).subscribe(
           (novoEvento: Evento) => {
@@ -186,6 +275,19 @@ export class EventosComponent implements OnInit {
         } else {
           // ↓ Evento recebe um "COP", assim copia todos os valores do formulário e atribui para dentro do 'this.evento'.
           this.evento = Object.assign({id: this.evento.id}, this.registerForm.value);
+
+          //// ↓ Chamar o save primeiro do arquivo.
+          //// Com temos uma promise temos que dar um subscribe nele.
+          //this.eventoService.postUpload(this.file).subscribe();
+
+          //// ↓ Como o arquivo vem carregado com um nome "Fake", precisa fazer 
+          //// um tratamento para pegar o nome corretamente
+          //const nomeArquivo = this.evento.imagemURL.split('\\', 3);
+          //this.evento.imagemURL = nomeArquivo[2];
+
+          // ↓ Criado metodo para que não tenha código repetido.
+          this.uploadImagem();
+
           // ↓ Passar por parametro para o serviço.
           this.eventoService.putEvento(this.evento).subscribe(
             () => {

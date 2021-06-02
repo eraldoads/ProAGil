@@ -31,6 +31,18 @@ export class EventoService {
     return this.http.get<Evento>(`${this.baseURL}/${id}`);
   }
 
+  // ↓ Método que é chamado pela rota do DotNet que é o /upload com o arquivo selecionado na tela que é o formData.
+  postUpload(file: File, name: string){
+    // ↓ Montar o arquivo. como o arquivo é um array apontamos ele para a 1ª posição.
+    const fileToUpload = <File>file[0];
+    // ↓ Criamos um formDatra, pois é o que vamos enviar.
+    const formData = new FormData();
+    // ↓ Ese formData deve receber
+    formData.append('file', fileToUpload, name);
+
+    return this.http.post(`${this.baseURL}/upload`, formData);
+  }
+
   // ↓ Método para receber o POST → as informações do formulário passada por paramêtro.
   postEvento(evento: Evento) {
     // Retorna um Observable.

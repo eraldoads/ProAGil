@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.IO;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -48,6 +50,50 @@ namespace ProAgil.API.Controllers
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco de dados falhou {ex.Message}");
             }
+
+        }
+
+        // Post
+        // Aqui fará o Upload da imagem.
+        [HttpPost("upload")]
+        public async Task<IActionResult> upload()
+        {
+            try
+            {
+                // ↓ Aqui escrevemos o código para realizar o upload da imagem.
+                // Todo o aquivo vem como um array, e aqui pegaremos a 1ª posição.
+                var file = Request.Form.Files[0];
+                // ↓Configurar um novo diretório. Foi criada a pasta "Resources" e "Imagens" dentro de /ProAgil.API
+                // e arrastadas as imagens para dentro do dirtório que ficou: /ProAgil.API/Resources/Images.
+                var folderName = Path.Combine("Resources", "Images");
+                // ↓ Caminho onde se quer salvar.
+                // Directory.GetCurrentDirectory() → é o diretório atual da aplicação.
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+                // ↓ Condição que verifica
+                if(file.Length > 0)
+                {
+                    // Monta e converte o nome dele.
+                    var filename = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName;
+                    // Monta a URL onde será salvo especificamente.
+                    // Retira do nome do arquivo caso ele tenha aspas dulas (") e espaços.
+                    var fullPath = Path.Combine(pathToSave, filename.Replace("\"", " ").Trim());
+
+                    using(var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        // ↓ Realiza uma copia para o Stream.
+                        file.CopyTo(stream);
+                    }
+                }
+
+                return Ok();
+            }
+            catch (System.Exception ex )
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco de dados falhou {ex.Message}");
+            }
+
+            return BadRequest("Erro ao tentar realizar upload.");
 
         }
 

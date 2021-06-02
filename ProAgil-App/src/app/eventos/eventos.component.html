@@ -70,9 +70,10 @@
     <!-- Realiza um binding com interpolação entre uma propriedade da nossa classe (contida dentro do eventos.component.ts) e o nosso template -->
     <tr *ngFor="let evento of eventosFiltrados">
       <td>
-        <!-- Trabalhando com concatenação e criando propriedades -->
+        <!-- Trabalhando com concatenação e criando propriedades. -->
+         <!-- Colocar o dataAtual na URL para entender que a imagem foi alterada e não utilizar o cache do HTML. -->
         <img *ngIf="mostrarImagem"
-        src="http://localhost:5000/img/{{evento.imagemURL}}"
+        src="http://localhost:5000/resources/images/{{evento.imagemURL}}?_ts{{dataAtual}}"
         [style.width.px]="imagemLargura"
         [style.margin.px]="imagemMargem">
       </td>
@@ -201,9 +202,18 @@
             </div>
             <div class="form-group col-md-9">
               <label>Imagem</label>
-              <input type="text" class="form-control"
-                [ngClass]="{'is-invalid': registerForm.get('imagemURL').errors && registerForm.get('imagemURL').touched}"
-                formControlName="imagemURL" placeholder="Insira uma imagem">
+              <table>
+                <tr>
+                  <td>
+                    <button class="btn btn-success" (click)="file.click()"> Enviar Imagem </button>
+                    <input type="file" #file [ngClass]="{'is-invalid': registerForm.get('imagemURL').errors
+                    && registerForm.get('imagemURL').touched}" (change)="onFileChange($event)"
+                      class="form-control is-invalid" formControlName="imagemURL" placeholder="Insira uma imagem"
+                      style="display: none;">
+                  </td>
+                </tr>
+              </table>
+              
               <div *ngIf="registerForm.get('imagemURL').hasError('required')
                 && registerForm.get('imagemURL').touched" class="invalid-feedback ">
                 Imagem é obrigatória.
