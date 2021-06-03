@@ -38,7 +38,9 @@ export class EventoService {
     const fileToUpload = file[0] as File; // Alterado conforme orientação do 'TsLint'.
     // ↓ Criamos um formDatra, pois é o que vamos enviar.
     const formData = new FormData();
-    // ↓ Ese formData deve receber
+    // ↓ Esse formData deve receber:
+    // formData.append('file', fileToUpload, fileToUpload.name);
+    // MODIFICADO pois está recebendo o 'name' do arquivo como parametro.
     formData.append('file', fileToUpload, name);
 
     return this.http.post(`${this.baseURL}/upload`, formData);

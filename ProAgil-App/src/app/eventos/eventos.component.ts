@@ -101,17 +101,18 @@ export class EventosComponent implements OnInit {
     this.modoSalvar = 'put';
     this.openModal(template);
 
-   // ↓ Código retirado para ajuste ao clicar no editar e a imagem some e da erro no console.
+   // ↓ CÓDIGO RETIRADO para ajuste ao clicar no editar e a imagem some e da erro no console.
    // this.evento = evento; // Isso é um Binding.
    // // ↓ uma solução "Paliativa" para que não apresente erro ao cliclar em Editar evento.
    // evento.imagemURL = ''; // Deixando como vazio ele não vai tentar inserir algo. Isso é um Binding.
    // this.registerForm.patchValue(evento);
 
-    // ↓ Copiar as informações para dentro de um "evento". Esse evento esta sofrendo um "Bind do Two-Way Data Biding"
+    // ↓ CÓDIGO SUBSTITUIDO para copiar as informações para dentro de um "evento".
+    // Esse evento esta sofrendo um "Bind do Two-Way Data Biding"
     // na grid da tela, ao clicar em editar a imagem some e da erro no console. Com isso deve remover o Binding
-    // por meio de uma copia.
+    // por meio de uma copia que estão dentro do 'evento'.
     this.evento = Object.assign({}, evento);
-    // ↓ Atribui a variável o valor da imagem.
+    // ↓ Atribui à variável o valor real da imagem.
     this.fileNameUpdate = evento.imagemURL.toString();
 
     // ↓ uma solução "Paliativa" para que não apresente erro ao cliclar em Editar evento.
@@ -198,10 +199,11 @@ export class EventosComponent implements OnInit {
       // ↓ Aqui temos a atribuição do nosso arquivo que está dentro do nosso
       // Evento que tem o Target que tem o arquivo
       this.file = event.target.files;
-      // console.log(this.file); // Verificar o que retorna.
+      // console.log(this.file); // Verificar o que retorna no console do navegador.
     }
   }
 
+  // Método criado para refaturar e não ter código repetido dentro de outros médotos.
   uploadImagem() {
     // ↓ Tratamento para alterar a imagem sem incluir uma nova no 'Resources\Images'.
     // no caso do de um 'POST' continua fazendo o que já fazia.
@@ -211,12 +213,13 @@ export class EventosComponent implements OnInit {
       const nomeArquivo = this.evento.imagemURL.split('\\', 3);
       this.evento.imagemURL = nomeArquivo[2];
 
-      // ↓ Chamar o save primeiro do arquivo.
+      // ↓ Chamar primeiro o save do arquivo.
       // Com temos uma promise temos que dar um subscribe nele.
       this.eventoService.postUpload(this.file, nomeArquivo[2])
       .subscribe(
         () => {
-          // → Necessidade de fazer uma "gambiarra" para que ao alterar a imagem ela será atualizada
+          // → Para que não seja sempre adicionada uma nova imagem no servidor, desta forma, existe a
+          // necessidade de fazer uma "gambiarra" para que ao alterar a imagem, e assim, ela será atualizada
           // e carregará a grid na tela com a nova imagem salva.
           this.dataAtual = new Date().getMilliseconds().toString(); // essa é a "gambiarra".
 
@@ -230,7 +233,8 @@ export class EventosComponent implements OnInit {
       this.eventoService.postUpload(this.file, this.fileNameUpdate)
       .subscribe(
         () => {
-          // → Necessidade de fazer uma "gambiarra" para que ao alterar a imagem ela será atualizada
+          // → Para que não seja sempre adicionada uma nova imagem no servidor, desta forma, existe a
+          // necessidade de fazer uma "gambiarra" para que ao alterar a imagem, e assim, ela será atualizada
           // e carregará a grid na tela com a nova imagem salva.
           this.dataAtual = new Date().getMilliseconds().toString(); // essa é a "gambiarra".
 
@@ -242,13 +246,13 @@ export class EventosComponent implements OnInit {
   }
 
   salvarAlteracao(template: any) {
-    // Verifica se o formulário está valido
+    // Verifica se o formulário está valido.
     if (this.registerForm.valid) {
       if (this.modoSalvar === 'post') {
         // ↓ Evento recebe um "COP", assim copia todos os valores do formulário e atribui para dentro do 'this.evento'.
         this.evento = Object.assign({}, this.registerForm.value);
 
-        //// ↓ Chamar o save primeiro do arquivo.
+        //// ↓ Chamar primeiro o save do arquivo.
         //// Com temos uma promise temos que dar um subscribe nele.
         // this.eventoService.postUpload(this.file).subscribe();
 
@@ -276,7 +280,7 @@ export class EventosComponent implements OnInit {
           // ↓ Evento recebe um "COP", assim copia todos os valores do formulário e atribui para dentro do 'this.evento'.
           this.evento = Object.assign({id: this.evento.id}, this.registerForm.value);
 
-          //// ↓ Chamar o save primeiro do arquivo.
+          //// ↓ Chamar primeiro o save do arquivo.
           //// Com temos uma promise temos que dar um subscribe nele.
           // this.eventoService.postUpload(this.file).subscribe();
 

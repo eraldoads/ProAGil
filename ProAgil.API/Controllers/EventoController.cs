@@ -63,15 +63,15 @@ namespace ProAgil.API.Controllers
                 // ↓ Aqui escrevemos o código para realizar o upload da imagem.
                 // Todo o aquivo vem como um array, e aqui pegaremos a 1ª posição.
                 var file = Request.Form.Files[0];
-                // ↓Configurar um novo diretório. Foi criada a pasta "Resources" e "Imagens" dentro de /ProAgil.API
-                // e arrastadas as imagens para dentro do dirtório que ficou: /ProAgil.API/Resources/Images.
-                var folderName = Path.Combine("Resources", "Images");
+                // ↓ Configurar um novo diretório. Foi criada a pasta "Resources" e "Imagens" dentro de /ProAgil.API
+                // e arrastadas as imagens para dentro do dirtório que ficou: ../ProAgil.API/Resources/Images.
+                var folderName = Path.Combine("Resources", "Images"); // Faz a combinação de duas strings em um caminho.
                 // ↓ Caminho onde se quer salvar.
                 // Directory.GetCurrentDirectory() → é o diretório atual da aplicação.
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
-                // ↓ Condição que verifica
-                if(file.Length > 0)
+                // ↓ Condição que verifica:
+                if(file.Length > 0) // Se o Array dele for maio que zero.
                 {
                     // Monta e converte o nome dele.
                     var filename = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName;

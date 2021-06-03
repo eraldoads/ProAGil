@@ -63,8 +63,8 @@ namespace ProAgil.API
             app.UseStaticFiles(); // Para poder utilizar imagens. Encontra as imagens dentro do servidor, dentro da pasta 'wwwroot/img/'.
             // ↓ Passa um parametro criando uma instância.
             app.UseStaticFiles(new StaticFileOptions(){
-                // ↓ Toda vez que for pegar um aruivo ele estará
-                // disponibilizado um arquivo no diretorio Resources.
+                // ↓ Dentro dessa instância, toda vez que for pegar um arquivo
+                // ele estará disponibilizado no diretorio Resources.
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
                 // ↓ aqui especificamos que toda vez que for realizado um request ele vai pegar do "/Resources".
                 RequestPath = new PathString("/Resources")
