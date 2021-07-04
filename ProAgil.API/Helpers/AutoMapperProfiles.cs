@@ -2,6 +2,7 @@ using System.Linq;
 using AutoMapper;
 using ProAgil.API.Dtos;
 using ProAgil.Dominio;
+using ProAgil.Dominio.Identity;
 
 namespace ProAgil.API.Helpers
 {
@@ -30,6 +31,9 @@ namespace ProAgil.API.Helpers
             CreateMap<RedeSocial, RedeSocialDto>().ReverseMap();
             // Mapeamento do DTO de forma invertida, para utilizar no método POST.
             //CreateMap<RedeSocialDto, RedeSocial>(); // Alterado para utilizar o .ReverseMap() ↑ que funciona da mesma forma.
+
+            CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<User, UserLoginDto>().ReverseMap();
 
         }
     }

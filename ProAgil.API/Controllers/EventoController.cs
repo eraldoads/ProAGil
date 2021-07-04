@@ -56,7 +56,9 @@ namespace ProAgil.API.Controllers
         // Post
         // Aqui fará o Upload da imagem.
         [HttpPost("upload")]
-        public async Task<IActionResult> upload()
+        // public async Task<IActionResult> upload()
+        // ↓ Tornar método assincrono.
+        public IActionResult upload()
         {
             try
             {
@@ -71,7 +73,7 @@ namespace ProAgil.API.Controllers
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
                 // ↓ Condição que verifica:
-                if(file.Length > 0) // Se o Array dele for maio que zero.
+                if (file.Length > 0) // Se o Array dele for maio que zero.
                 {
                     // Monta e converte o nome dele.
                     var filename = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName;
@@ -79,7 +81,7 @@ namespace ProAgil.API.Controllers
                     // Retira do nome do arquivo caso ele tenha aspas dulas (") e espaços.
                     var fullPath = Path.Combine(pathToSave, filename.Replace("\"", " ").Trim());
 
-                    using(var stream = new FileStream(fullPath, FileMode.Create))
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
                     {
                         // ↓ Realiza uma copia para o Stream.
                         file.CopyTo(stream);
@@ -88,12 +90,12 @@ namespace ProAgil.API.Controllers
 
                 return Ok();
             }
-            catch (System.Exception ex )
+            catch (System.Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco de dados falhou {ex.Message}");
             }
 
-            return BadRequest("Erro ao tentar realizar upload.");
+            // return BadRequest("Erro ao tentar realizar upload.");
 
         }
 
