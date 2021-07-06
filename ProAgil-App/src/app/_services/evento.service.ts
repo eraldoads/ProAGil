@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Evento } from '../_models/Evento';
 
@@ -10,11 +10,20 @@ import { Evento } from '../_models/Evento';
 export class EventoService {
 
   baseURL = 'http://localhost:5000/api/evento';
+  // tokenHeader: HttpHeaders; // ← retirado após criado o interceptador 'auth.interceptor.ts'.
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    /* ↓ retirado após criado o interceptador 'auth.interceptor.ts'.
+      // ↓ Armazena o token de autenticação para acessar o banco de dados e retornar com os eventos.
+      // this.tokenHeader = new HttpHeaders({  Authorization: `Bearer ${localStorage.getItem('token')}` });
+    */
+   }
 
   // Colocar que é do tipo Observable.
   getAllEvento(): Observable<Evento[]> {
+    /* ↓ retirado após criado o interceptador 'auth.interceptor.ts'.
+      //return this.http.get<Evento[]>(this.baseURL, { headers: this.tokenHeader });
+    */
     // Retorna um Observable.
     return this.http.get<Evento[]>(this.baseURL);
   }
@@ -43,23 +52,35 @@ export class EventoService {
     // MODIFICADO pois está recebendo o 'name' do arquivo como parametro.
     formData.append('file', fileToUpload, name);
 
+    /* ↓ retirado após criado o interceptador 'auth.interceptor.ts'.
+      return this.http.post(`${this.baseURL}/upload`, formData, { headers: this.tokenHeader });
+    */
     return this.http.post(`${this.baseURL}/upload`, formData);
   }
 
   // ↓ Método para receber o POST → as informações do formulário passada por paramêtro.
   postEvento(evento: Evento) {
+    /* ↓ retirado após criado o interceptador 'auth.interceptor.ts'.
+      return this.http.post(this.baseURL, evento, { headers: this.tokenHeader });
+    */
     // Retorna um Observable.
     return this.http.post(this.baseURL, evento);
   }
 
   // ↓ Método para receber o PUT → as informações do formulário passada por paramêtro.
   putEvento(evento: Evento) {
+    /* ↓ retirado após criado o interceptador 'auth.interceptor.ts'.
+      return this.http.put(`${this.baseURL}/${evento.id}`, evento, { headers: this.tokenHeader });
+    */
     // Retorna um Observable.
     return this.http.put(`${this.baseURL}/${evento.id}`, evento);
   }
 
   // ↓ Método para deletar um item da tabela.
   deleteEvento(id: number) {
+    /* ↓ retirado após criado o interceptador 'auth.interceptor.ts'.
+      return this.http.delete(`${this.baseURL}/${id}`, { headers: this.tokenHeader });
+    */
     // Retorna um Observable.
     return this.http.delete(`${this.baseURL}/${id}`);
   }
