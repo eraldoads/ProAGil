@@ -5,13 +5,15 @@ namespace ProAgil.Repositorio
 {
     public interface IProAgilRepositorio
     {
-         // Criar os métodos que a interface vai possuir. Qualquer entidade que for criadas ela terá que ADD, UPDATE e DELETE.
-         // GERAL
-         void Add<T>(T entity) where T : class;
-         void Update<T>(T entity) where T : class;
-         void Delete<T>(T entity) where T : class;
+        // Criar os métodos que a interface vai possuir. Qualquer entidade que for criadas ela terá que ADD, UPDATE e DELETE.
+        // GERAL
+        void Add<T>(T entity) where T : class;
+        void Update<T>(T entity) where T : class;
+        void Delete<T>(T entity) where T : class;
+        // void DeleteRange(Lote[] lotes); // ← Descontinuado
+        void DeleteRange<T>(T[] entity) where T : class;
 
-         Task<bool> SaveChangeAsync();
+        Task<bool> SaveChangeAsync();
 
          // EVENTOS
          // Para listar em caso de busca.

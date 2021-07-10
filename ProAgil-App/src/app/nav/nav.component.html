@@ -22,9 +22,9 @@
     <ul *ngIf="loggedIn()" class="navbar-nav">
       <li class="nav-item dropdown" dropdown>
         <a dropdownToggle class="nav-link dropdown-toggle" id="navbarDropdownMenuLink"
-        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="cursor: pointer">
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="cursor: pointer; text-transform: capitalize;">
         <!-- {{authService.decodedToken?.unique_name}} -->
-        {{nomeUsuario() | titlecase}} <!-- Transforma a primeira letra em maiuscula -->
+        {{nomeUsuario() | titlecase}} <!-- Transforma a primeira letra em maiuscula assim como o " text-transform: capitalize; ↑" -->
       </a>
       <div *dropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
         <a class="dropdown-item" style="cursor: pointer">

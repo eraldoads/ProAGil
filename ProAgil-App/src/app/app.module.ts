@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; // Importa o modulo HttpClientModule.
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Importa o modulo FormsModule.
-import { BsDropdownModule, TooltipModule, ModalModule, BsDatepickerModule, } from 'ngx-bootstrap'; // Importa o modulo do NGX-Bootstrap.
+import { BsDropdownModule, TooltipModule, ModalModule, BsDatepickerModule } from 'ngx-bootstrap';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { NgxMaskModule } from 'ngx-mask';
+import { NgxCurrencyModule } from 'ngx-currency';
 import { ToastrModule } from 'ngx-toastr';
 
 // SERVIÇOS
@@ -16,6 +18,7 @@ import { EventoService } from './_services/evento.service';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { EventosComponent } from './eventos/eventos.component';
+import { EventoEditComponent } from './eventos/eventoEdit/eventoEdit.component';
 import { PalestrantesComponent } from './palestrantes/palestrantes.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ContatosComponent } from './contatos/contatos.component';
@@ -34,6 +37,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
       AppComponent,
       NavComponent,
       EventosComponent,
+      EventoEditComponent,
       PalestrantesComponent,
       DashboardComponent,
       ContatosComponent,
@@ -50,6 +54,9 @@ import { AuthInterceptor } from './auth/auth.interceptor';
       BsDatepickerModule.forRoot(), // o "forRoot" é para funcionar em toda a aplicação.
       TooltipModule.forRoot(), // o "forRoot" é para funcionar em toda a aplicação.
       ModalModule.forRoot(), // o "forRoot" é para funcionar em toda a aplicação.
+      TabsModule.forRoot(), // o "forRoot" é para funcionar em toda a aplicação.
+      NgxMaskModule.forRoot(), // o "forRoot" é para funcionar em toda a aplicação.
+      NgxCurrencyModule,
       BrowserAnimationsModule, // Requerido para animations module
       ToastrModule.forRoot({
          timeOut: 10000,

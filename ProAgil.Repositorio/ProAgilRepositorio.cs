@@ -35,6 +35,10 @@ namespace ProAgil.Repositorio
         {
             _context.Remove(entity);
         }
+        public void DeleteRange<T>(T[] entityArray) where T : class
+        {
+            _context.RemoveRange(entityArray);
+        }
 
         public async Task<bool> SaveChangeAsync()
         {
@@ -50,7 +54,7 @@ namespace ProAgil.Repositorio
             // Vai no banco de dados, através do query, e realiza as instruções.
             IQueryable<Evento> query = _context.Eventos
                 .Include(c => c.Lotes)
-                .Include(c => c.RedeSociais);
+                .Include(c => c.RedesSociais);
             
             // No caso de existir o palestrante ele inclui no banco de dados.
             if (includePalestrantes)
@@ -72,7 +76,7 @@ namespace ProAgil.Repositorio
             // Vai no banco de dados, através do query, e realiza as instruções.
             IQueryable<Evento> query = _context.Eventos
                 .Include(c => c.Lotes)
-                .Include(c => c.RedeSociais);
+                .Include(c => c.RedesSociais);
             
             // No caso de existir o palestrante ele inclui no banco de dados.
             if (includePalestrantes)
@@ -95,7 +99,7 @@ namespace ProAgil.Repositorio
             // Vai no banco de dados, através do query, e realiza as instruções.
             IQueryable<Evento> query = _context.Eventos
                 .Include(c => c.Lotes)
-                .Include(c => c.RedeSociais);
+                .Include(c => c.RedesSociais);
             
             // No caso de existir o palestrante ele inclui no banco de dados.
             if (includePalestrantes)

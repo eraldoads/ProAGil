@@ -62,7 +62,7 @@
       <th>Data</th>
       <th>Qtd Pessoas</th>
       <th>Lote</th>
-      <th>Opções</th>
+      <th colspan="2" class="text-center">Opções</th>
     </tr>
   </thead>
   <!-- Criação do conteudo da tabela digitando ' tbody>tr>td*7 ' depois aperta o ' enter ' -->
@@ -102,6 +102,11 @@
           <i class="fa fa-eraser"></i>
         </button>
       </div>
+    </td>
+    <td>
+      <a [routerLink]="['/evento', evento.id, 'edit']" tooltip="Edição Detalhada" class="btn btn-sm btn-warning">
+        <i class="fa fa-edit"></i>
+      </a>
     </td>
   </tr>
 </tbody>
@@ -171,7 +176,8 @@
                   value="[{{dataEvento | DateTimeFormatPipe}}"
                   [(ngModel)]= "dataEvento"
                   [bsConfig]="{dateInputFormat : 'DD/MM/YYYY HH:mm' }"
-                  [ngClass]="{'is-invalid': registerForm.get('dataEvento').errors && registerForm.get('dataEvento').touched}"
+                  [ngClass]="{'is-invalid': registerForm.get('dataEvento').errors
+                  && registerForm.get('dataEvento').touched}"
                   formControlName="dataEvento" placeholder="Insira a data e hora"> -->
                 
                 <input type="text" class="form-control" 
@@ -224,9 +230,9 @@
           <div class="form-row">
             <div class="form-group col-md-4">
               <label>Telefone</label>
-              <input type="text" class="form-control"
+              <input type="text" mask="(00) 0000-0000" class="form-control"
                 [ngClass]="{'is-invalid': registerForm.get('telefone').errors && registerForm.get('telefone').touched}"
-                formControlName="telefone" placeholder="Insira um telefone">
+                formControlName="telefone" placeholder="(00) 90000-0000">
               <div *ngIf="registerForm.get('telefone').hasError('required')
                 && registerForm.get('telefone').touched" class="invalid-feedback ">
                 Telefone é obrigatório.

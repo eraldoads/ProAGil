@@ -344,6 +344,8 @@ export class EventosComponent implements OnInit {
 
   // Alterado para ↓.
   getEventos() {
+    this.dataAtual = new Date().getMilliseconds().toString();
+
     // Vai buscar as informações dentro do serviço (pasta _services). o HTTP ficou encapsulado dentro do
     // serviço onde existe o método GET. Deixando mais tipado.
     this.eventoService.getAllEvento().subscribe(

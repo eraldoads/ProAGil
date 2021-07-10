@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -190,6 +191,35 @@ namespace ProAgil.API.Controllers
                 var evento = await _repo.GetAllEventoAsyncById(EventoId, false);
                 // Se não foi encontrado elemento não é atualizado.
                 if (evento == null) return NotFound();
+
+            //
+            
+            // → Com esse código estava dando duplicidade ao inserir Lote e Rede Social, ao contrario
+            //  do que foi apresentado em aula.
+
+                // ↓ Deletando relacionamento, quando acontece de duplicar o registro de Lotes e Redes Sociais.
+                var idLotes = new List<int>();
+                var idRedesSociais = new List<int>();
+
+                // ↓ Verifica quem esta dentro do model dos Lotes.
+                model.Lotes.ForEach(item => idLotes.Add(item.Id));
+                // ↓ Verifica quem esta dentro do model das RedeSociais.
+                model.RedesSociais.ForEach(item => idRedesSociais.Add(item.Id));
+
+                // ↓ Verifica quem está dentro do evento.
+                var lotes = evento.Lotes.Where(
+                    lote => !idLotes.Contains(lote.Id)
+                ).ToArray();
+
+                var redesSociais = evento.RedesSociais.Where(
+                    rede => !idRedesSociais.Contains(rede.Id)
+                ).ToArray();
+
+                // ↓ Verifica se existe algum registro "duplicado" para deletar dos Lotes.
+                if (lotes.Length > 0) _repo.DeleteRange(lotes);
+
+                // ↓ Verifica se existe algum registro "duplicado" para deletar das Redes Sociais.
+                if (redesSociais.Length > 0) _repo.DeleteRange(redesSociais);
 
                 // Faz o mapeamento recebendo o model e substituindo pelo evento.
                 _mapper.Map(model, evento);

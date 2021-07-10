@@ -16,7 +16,7 @@ namespace ProAgil.Dominio
 
         // Quando colocamos uma lista quer dizer que a classe evento esta relacionada a outras classes (Lote, RedeSocial e PalestranteEvento)
         public List<Lote> Lotes { get; set; }
-        public List<RedeSocial> RedeSociais { get; set; }
+        public List<RedeSocial> RedesSociais { get; set; }
         public List<PalestranteEvento> PalestrantesEventos { get; set; }
     }
 }

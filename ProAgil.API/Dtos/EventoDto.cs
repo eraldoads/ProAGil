@@ -25,7 +25,7 @@ namespace ProAgil.API.Dtos
         [EmailAddress (ErrorMessage="Email invalido")] // → DataAnnotations
         public string Email { get; set; }
         public List<LoteDto> Lotes { get; set; }
-        public List<RedeSocialDto> RedeSociais { get; set; }
+        public List<RedeSocialDto> RedesSociais { get; set; }
         public List<PalestranteDto> Palestrantes { get; set; }
     }
 }
