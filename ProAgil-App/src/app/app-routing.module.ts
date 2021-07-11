@@ -9,6 +9,7 @@ import { PalestrantesComponent } from './palestrantes/palestrantes.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { UserComponent } from './user/user.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 // ↓ Configurações de rotas.
 const routes: Routes = [
@@ -30,7 +31,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  imports: [NgxMaskModule.forChild (), RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

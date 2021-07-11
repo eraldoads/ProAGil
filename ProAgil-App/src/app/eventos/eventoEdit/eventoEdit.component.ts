@@ -13,6 +13,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class EventoEditComponent implements OnInit {
 
+  public customPatterns = { A: { pattern: new RegExp('')} };
+
   titulo = 'Editar Evento';
   evento: Evento = new Evento(); // ← Foi necessário transformar a interface do 'Evento' em um classe.
 

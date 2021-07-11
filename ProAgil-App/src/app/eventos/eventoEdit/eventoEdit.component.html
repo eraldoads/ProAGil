@@ -140,13 +140,13 @@
                   </div>
                   <div class="form-group col-md-4">
                     <label>Data Início</label>
-                    <input type="text"
+                    <input type="text" [dropSpecialCharacters]="false" mask="d0/M0/0000 Hh:m0:s0"
                      class="form-control" 
                      formControlName="dataInicio" placeholder="01/01/2021">
                   </div>
                   <div class="form-group col-md-4">
                     <label>Data Fim</label>
-                    <input type="text"
+                    <input type="text" [dropSpecialCharacters]="false" mask="d0/M0/0000 Hh:m0:s0"
                      class="form-control" 
                      formControlName="dataFim" placeholder="01/01/2021">
                   </div>
@@ -195,7 +195,7 @@
                 </div>
                 <div class="form-group col-md-8">
                   <label>Link</label>
-                  <input type="text" prefix="http://" mask=""
+                  <input type="text" prefix="http://" [dropSpecialCharacters]="false" [patterns]="customPatterns" mask="A*"
                     [ngClass]="{'is-invalid': redesSociais.get(j+'.url').errors && redesSociais.get(j+'.url').touched}"
                     formControlName="url" class="form-control" placeholder="URL">
                 </div>
