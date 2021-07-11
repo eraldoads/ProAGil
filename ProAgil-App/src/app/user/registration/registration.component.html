@@ -39,7 +39,7 @@
         <input class="form-control" type="text" formControlName="userName"
           [ngClass]="{'is-invalid': registerForm.get('userName').errors &&
                                     registerForm.get('userName').touched}"
-          placeholder="Insira o nome de Usuário"/>
+          placeholder="Insira o Nome de Usuário"/>
         <div *ngIf="registerForm.get('userName').hasError('required') &&
                     registerForm.get('userName').touched"
           class="invalid-feedback">

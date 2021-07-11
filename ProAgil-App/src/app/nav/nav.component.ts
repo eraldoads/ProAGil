@@ -17,6 +17,11 @@ export class NavComponent implements OnInit {
   ngOnInit() {
   }
 
+  showMenu() {
+    // Função criada para não apresentar a barra de navegação na tela de login.
+    return this.router.url !== '/user/login';
+  }
+
   // ↓ Função que mostra ou não a barra de navegação se tiver algum usuário logado ou não.
   loggedIn() {
     return this.authService.loggedIn();

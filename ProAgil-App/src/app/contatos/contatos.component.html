@@ -1,5 +1,109 @@
-<app-titulo [titulo]="titulo"></app-titulo>
+<section class="jumbotron text-center">
+  <div class="container">
+      <h1 class="jumbotron-heading">ProAgil APP</h1>
+      <p class="lead text-muted mb-0">Entre em contato com a gente! 😎</p>
+  </div>
+</section>
+<div class="container">
+  <div class="row">
+      <div class="col">
+          <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="index.html">Página inicial</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Contato</li>
+              </ol>
+          </nav>
+      </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+      <div class="col">
+          <div class="card">
+              <div class="card-header bg-primary text-white"><i class="fa fa-envelope"></i> Nosso Contato.
+              </div>
+              <div class="card-body">
+                  <form>
+                      <div class="form-group">
+                          <label for="name">Nome</label>
+                          <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Insira o Nome" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="email">Email</label>
+                          <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Insira o E-mail" required>
+                          <small id="emailHelp" class="form-text text-muted">Nunca compartilharemos seu e-mail com alguém.</small>
+                      </div>
+                      <div class="form-group">
+                          <label for="message">Mensagem</label>
+                          <textarea class="form-control" id="message" rows="6" required></textarea>
+                      </div>
+                      <div class="mx-auto">
+                      <button type="submit" class="btn btn-primary text-right">Enviar</button></div>
+                  </form>
+              </div>
+          </div>
+      </div>
+      <div class="col-12 col-sm-4">
+          <div class="card bg-light mb-3">
+              <div class="card-header bg-success text-white text-uppercase"><i class="fa fa-home"></i> Endereço</div>
+              <div class="card-body">
+                  <p>Rua des Champs Elysées</p>
+                  <p>Porto Alegre / RS</p>
+                  <p>Brasil</p>
+                  <p><i class="fa fa-envelope mr-2"></i>Email : proagil@app.com.br</p>
+                  <p><i class="fab fa-whatsapp mr-2"></i>Tel. +55 (51) 98556.5555</p>
 
-<p>
-  contatos works!
-</p>
+              </div>
+
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="text-light">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-3 col-lg-4 col-xl-3">
+              <h5>Sobre</h5>
+              <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+              <p class="mb-0">
+                  Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.
+              </p>
+          </div>
+
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto">
+              <h5>Informações</h5>
+              <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+              <ul class="list-unstyled">
+                  <li><a href="">Link 1</a></li>
+                  <li><a href="">Link 2</a></li>
+                  <li><a href="">Link 3</a></li>
+                  <li><a href="">Link 4</a></li>
+              </ul>
+          </div>
+
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto">
+              <!-- <h5>Others links</h5>
+              <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+              <ul class="list-unstyled">
+                  <li><a href="">Link 1</a></li>
+                  <li><a href="">Link 2</a></li>
+                  <li><a href="">Link 3</a></li>
+                  <li><a href="">Link 4</a></li>
+              </ul> -->
+          </div>
+
+          <div class="col-md-4 col-lg-3 col-xl-3">
+              <h5>Contact</h5>
+              <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+              <ul class="list-unstyled">
+                  <li><i class="fa fa-home mr-2"></i> ProAgil APP </li>
+                  <li><i class="fa fa-envelope mr-2"></i> proagil@app.com</li>
+                  <li><i class="fa fa-phone mr-2"></i> +55 (51) 3266.5555</li>
+                  <li><i class="fab fa-whatsapp mr-2"></i> +55 (51) 99566.5555</li>
+              </ul>
+          </div>
+      </div>
+  </div>
+</footer>
