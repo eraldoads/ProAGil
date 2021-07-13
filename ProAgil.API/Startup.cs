@@ -39,7 +39,8 @@ namespace ProAgil.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ProAgilContext>(
-                x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")) // Dentro do arquivo de configuração " appsettings.Development.json " vai ser criado a " ConnectionString ".
+                // x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")) // Dentro do arquivo de configuração " appsettings.Development.json " vai ser criado a " ConnectionString ".
+                x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")) // Dentro do arquivo de configuração " appsettings.Development.json " vai ser criado a " ConnectionString ".
             );
             
             // ↓ Realizar uma configuração que tudo que foi feito, as tabelas, elas serão injetadas nas

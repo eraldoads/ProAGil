@@ -1,0 +1,21 @@
+{
+  "AppSettings" :{
+    "Token" : "Super Secret Key"
+  },
+  "ConnectionStrings":{
+    "DefaultConnection" : "Data Source=ProAgil.db"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Debug",
+      "System": "Information",
+      "Microsoft": "Information"
+    }
+  }
+}
+
+/*
+  Como o JSON não aceita comentarios foi preciso criar um para utilizar o SQLServer,
+  assim, para voltar a utilizar o SQLite deve renomer o arquivo ou utilizar a string de
+  conexão do SQLite nesse arquivo "appsettings.Development.json".
+*/
